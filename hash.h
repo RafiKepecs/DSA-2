@@ -57,7 +57,7 @@ class hashTable {
     std::string key {""};
     bool isOccupied {false};
     bool isDeleted {false};
-    void *pv {nullptr}; 
+    void *pv {nullptr};
 
     hashItem() = default;
   };
@@ -84,3 +84,5 @@ class hashTable {
 };
 
 #endif //_HASH_H
+
+//testdeedle
