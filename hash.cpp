@@ -8,11 +8,21 @@ using namespace std;
 
 
 ///*
-hashTable::hashTable(int size){
+hashTable::hashTable(int size) : data(getPrime(size)){
   int primeSize = 101;
+  makeEmpty();
+  /*
   hashItem test;
   for(int i=0 ; i < primeSize ; i++){
     data.push_back(test);
+  }
+  */
+}
+
+void hashTable::makeEmpty(){
+  capacity = 0;
+  for (auto & entry : data){
+    entry.key = "0";
   }
 }
 
@@ -48,8 +58,9 @@ bool hashTable::remove(const std::string &key){
   return false;
 }
 
-static unsigned int getPrime(int size){
-  int prime = 101;
-  return prime;
+unsigned int hashTable::getPrime(int size){
+  int primes[6] = {98317, 196613, 393241, 786433, 1572869, 3145739};
+  cout << primes[0] << endl;
+  return primes[0];
 }
 //*/
