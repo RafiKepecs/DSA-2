@@ -10,6 +10,9 @@ using namespace std;
 ///*
 hashTable::hashTable(int size) : data(getPrime(size)){
   makeEmpty();
+  capacity = getPrime(size);
+  filled = 0;
+  hash("s"); // i think this goes into the insert function
   /*
   hashItem test;
   for(int i=0 ; i < primeSize ; i++){
@@ -26,7 +29,17 @@ void hashTable::makeEmpty(){
   }
 }
 
+//no idea if this works yet... but it's compiling
 int hashTable::insert(const string &key, void *pv){
+  hashItem *temp = new hashItem();
+  int index = hash(key);
+  while((data[index].key != key) && (data[index].key != "0")){
+    index++;
+  }
+  filled++;
+  //having trouble inserting the element into the data vector
+  vector<int>::iterator it = find(data.begin(), data.end, index)
+  data.insert(it,temp);
   return 0;
 }
 ///*
@@ -35,7 +48,17 @@ bool hashTable::contains(const string &key){
 }
 
 int hashTable::hash(const string &key){
-  return 0;
+    int sum = 0;
+
+    for (int k = 0; k < key.length(); k++){
+        sum = sum + int(key[k]);
+        //cout << sum << endl;
+    }
+    cout << sum % capacity << endl;
+    //cout << capacity << endl;
+    //cout << sum % capacity << endl;
+    return (sum % capacity);
+    //return 0;
 }
 
 int hashTable::findPos(const string &key){
@@ -66,7 +89,7 @@ unsigned int hashTable::getPrime(int size){
     }
     else{
       prime = primes[i];
-      cout << "Table size = " << prime << endl;
+      //cout << "Table size = " << prime << endl;
       return prime;
     }
   }
