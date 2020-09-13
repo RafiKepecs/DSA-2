@@ -3,6 +3,8 @@
 #include "hash.h"
 using namespace std;
 
+//implement file parse with !validCharacter as word separators
+
 bool validCharacter(char c){
   int A_bound = 65;
   int Z_bound = 90;
@@ -56,6 +58,9 @@ void loadDictionary(string input){
   ifstream file2 (input);
   hashTable h(numberOfLines);
   while(getline(file2,str2)){
+    for (int i = 0; i < str2.length(); i++){
+      str2[i] = tolower(str2[i]);
+    }
     if (validWord(str2)){
       h.insert(str2);
     }
