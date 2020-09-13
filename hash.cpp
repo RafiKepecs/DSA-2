@@ -37,6 +37,7 @@ void hashTable::makeEmpty(){
 
 int hashTable::insert(const string &key, void *pv){
   int currentPos = findPos(key);
+
   if(contains(key)){
     //cout << "insert failed" << endl;
     return 1;
@@ -44,6 +45,7 @@ int hashTable::insert(const string &key, void *pv){
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
   //rehash
+
   if(++filled > data.size()/2){
     rehash();
     if(filled > data.size()/2){ //rehash failure
@@ -162,11 +164,16 @@ unsigned int hashTable::getPrime(int size){
 
 void hashTable::display()
     {
-        cout << capacity << endl;
+        //cout << capacity << endl;
         for(int i = 0 ; i < capacity ; i++)
         {
             //cout << "test" << endl;
-            if(data[i].isOccupied)
-                cout << "key = " << data[i].key << " is in position " << i << endl;
+            if(data[i].isOccupied){
+                cout << "key = " << data[i].key <<
+                " is in position " << i << endl;
+            }
+            else{
+              //cout << "error" << endl;
+            }
         }
     }
