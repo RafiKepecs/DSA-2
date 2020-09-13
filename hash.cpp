@@ -145,9 +145,9 @@ bool hashTable::remove(const std::string &key){
 }
 
 unsigned int hashTable::getPrime(int size){
-  int primes[6] = {98317, 196613, 393241, 786433, 1572869, 3145739};
+  int primes[7] = {49157, 98317, 196613, 393241, 786433, 1572869, 3145739};
   int prime = 0;
-  for (int i = 0; i < 6; i++){
+  for (int i = 0; i < 7; i++){
     if ((primes[i]/2) < size){
     }
     else{

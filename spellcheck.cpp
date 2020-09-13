@@ -1,17 +1,23 @@
 #include <iostream>
+#include <fstream>
 #include "hash.h"
 using namespace std;
 
 int main(){
   //hashTable(int) *h = new hashTable(5);
-  hashTable h(50000);
-  h.insert("One");
+  string input, str;
+  cout << "Enter name of input file: ";
+  cin >> input;
 
-  //h.contains("One");
-  //h.insert("Two");
-  //h.insert("Three");
-  //h.display();
-
-  cout << "success" << endl;
+  //parse the dictionary
+  ifstream file (input);
+  int numberOfLines = 0;
+  while(getline(file,str)){
+    numberOfLines++;
+  }
+  hashTable h(numberOfLines);
+  while(getline(file,str)){
+    h.insert(str);
+  }
   return 0;
 }
