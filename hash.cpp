@@ -10,6 +10,7 @@ using namespace std;
 ///*
 hashTable::hashTable(int size) : data(getPrime(size)){
   capacity = getPrime(size);
+  //cout << "constructor called" << endl;
   /*
   capacity = getPrime(size);
   filled = 0;
@@ -37,6 +38,7 @@ void hashTable::makeEmpty(){
 int hashTable::insert(const string &key, void *pv){
   int currentPos = findPos(key);
   if(contains(key)){
+    //cout << "insert failed" << endl;
     return 1;
   }
   data[currentPos].key = key;
@@ -48,7 +50,7 @@ int hashTable::insert(const string &key, void *pv){
       return 2;
     }
   }
-
+  //cout << "insert successful" << endl;
   return 0;
   /*
   hashItem *temp = new hashItem();
@@ -65,6 +67,7 @@ int hashTable::insert(const string &key, void *pv){
 }
 ///*
 bool hashTable::contains(const string &key){
+  //cout << "contains called" << endl;
   if(data[findPos(key)].isOccupied == true){
     return true;
   }
@@ -79,6 +82,7 @@ int hashTable::hash(const string &key){
   for (char ch : key){
     hashVal = 37*hashVal + ch;
   }
+  //cout << "hash called" << endl;
   return hashVal % capacity;
 
     /*
@@ -107,6 +111,7 @@ int hashTable::findPos(const string &key){
       currentPos -= data.size();
     }
   }
+  //cout << "findPos called" << endl;
   return currentPos;
 }
 
@@ -123,8 +128,8 @@ bool hashTable::rehash(){
       insert(std::move(entry.key));
     }
   }
-
-  return false;
+  //cout << "reshash called" << endl;
+  return true;
 }
 /*
 void hashTable::*getPointer(const string &key, bool *b = nullptr){

@@ -7,10 +7,10 @@ int main(){
   hashTable h(50000);
   h.insert("One");
 
-  h.contains("One");
-  h.insert("Two");
-  h.display();
+  //h.contains("One");
+  //h.insert("Two");
   //h.insert("Three");
+  //h.display();
 
   cout << "success" << endl;
   return 0;
