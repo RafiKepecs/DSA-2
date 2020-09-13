@@ -8,7 +8,8 @@ using namespace std;
 
 
 ///*
-hashTable::hashTable(int size = 0) : data(getPrime(size)){
+hashTable::hashTable(int size) : data(getPrime(size)){
+  capacity = getPrime(size);
   /*
   capacity = getPrime(size);
   filled = 0;
@@ -40,8 +41,14 @@ int hashTable::insert(const string &key, void *pv){
   }
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
+  //rehash
+  if(++filled > data.size()/2){
+    rehash();
+    if(filled > data.size()/2){ //rehash failure
+      return 2;
+    }
+  }
 
-  //must still implement rehash function, return 2 if rehash fails
   return 0;
   /*
   hashItem *temp = new hashItem();
@@ -104,6 +111,19 @@ int hashTable::findPos(const string &key){
 }
 
 bool hashTable::rehash(){
+  vector<hashItem> oldData = data;
+  data.resize(getPrime(2*oldData.size()));
+  for(auto & entry : data){
+    entry.key = "";
+    entry.isOccupied = false;
+  }
+  filled = 0;
+  for(auto & entry : oldData){
+    if(entry.isOccupied){
+      insert(std::move(entry.key));
+    }
+  }
+
   return false;
 }
 /*
@@ -134,3 +154,14 @@ unsigned int hashTable::getPrime(int size){
   return 0;
 }
 //*/
+
+void hashTable::display()
+    {
+        cout << capacity << endl;
+        for(int i = 0 ; i < capacity ; i++)
+        {
+            //cout << "test" << endl;
+            if(data[i].isOccupied)
+                cout << "key = " << data[i].key << " is in position " << i << endl;
+        }
+    }

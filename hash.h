@@ -45,6 +45,8 @@ class hashTable {
   // false if the specified key is not in the hash table.
   bool remove(const std::string &key);
 
+  void display();
+
 
  private:
 
@@ -71,7 +73,7 @@ class hashTable {
   std::vector<hashItem> data; // The actual entries are here.
 
   // The hash function.
-  int hash(const std::string &key, int tableSize);
+  int hash(const std::string &key);
 
   // Search for an item with the specified key.
   // Return the position if found, -1 otherwise.
