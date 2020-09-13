@@ -13,8 +13,8 @@ class hashTable {
   // the specified size for the initial size of the hash table.
   hashTable(int size = 0);
 
-  //I added this function based on the textbook
-  void makeEmpty();
+  //I added this function based on the textbook, but it seems to be unnecessary because each isOccupied element is initialized to {false}
+  //void makeEmpty();
 
   // Insert the specified key into the hash table.
   // If an optional pointer is provided,
@@ -71,7 +71,7 @@ class hashTable {
   std::vector<hashItem> data; // The actual entries are here.
 
   // The hash function.
-  int hash(const std::string &key);
+  int hash(const std::string &key, int tableSize);
 
   // Search for an item with the specified key.
   // Return the position if found, -1 otherwise.

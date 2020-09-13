@@ -8,11 +8,13 @@ using namespace std;
 
 
 ///*
-hashTable::hashTable(int size) : data(getPrime(size)){
-  makeEmpty();
+hashTable::hashTable(int size = 0) : data(getPrime(size)){
+  /*
   capacity = getPrime(size);
   filled = 0;
-  hash("s"); // i think this goes into the insert function
+  hash("s", capacity); // i think this goes into the insert function
+  */
+
   /*
   hashItem test;
   for(int i=0 ; i < primeSize ; i++){
@@ -22,15 +24,26 @@ hashTable::hashTable(int size) : data(getPrime(size)){
 }
 
 //i don't know if this is necessary yet
+/*
 void hashTable::makeEmpty(){
   capacity = 0;
   for (auto & entry : data){
     entry.key = "0";
   }
 }
+*/
 
-//no idea if this works yet... but it's compiling
 int hashTable::insert(const string &key, void *pv){
+  int currentPos = findPos(key);
+  if(contains(key)){
+    return 1;
+  }
+  data[currentPos].key = key;
+  data[currentPos].isOccupied = true;
+
+  //must still implement rehash function, return 2 if rehash fails
+  return 0;
+  /*
   hashItem *temp = new hashItem();
   int index = hash(key);
   while((data[index].key != key) && (data[index].key != "0")){
@@ -41,13 +54,27 @@ int hashTable::insert(const string &key, void *pv){
   vector<int>::iterator it = find(data.begin(), data.end, index)
   data.insert(it,temp);
   return 0;
+  */
 }
 ///*
 bool hashTable::contains(const string &key){
-  return false;
+  if(data[findPos(key)].isOccupied == true){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
 
+//Hash function taken from the textbook
 int hashTable::hash(const string &key){
+  unsigned int hashVal = 0;
+  for (char ch : key){
+    hashVal = 37*hashVal + ch;
+  }
+  return hashVal % capacity;
+
+    /*
     int sum = 0;
 
     for (int k = 0; k < key.length(); k++){
@@ -59,10 +86,21 @@ int hashTable::hash(const string &key){
     //cout << sum % capacity << endl;
     return (sum % capacity);
     //return 0;
+    */
 }
 
+//for linear probing, offset is always 1
+//implementation based on textbook
 int hashTable::findPos(const string &key){
-  return 0;
+  int currentPos = hash(key);
+  while(data[currentPos].isOccupied == true &&
+        data[currentPos].key != key){
+    currentPos += 1; // current probe
+    if(currentPos >= data.size()){
+      currentPos -= data.size();
+    }
+  }
+  return currentPos;
 }
 
 bool hashTable::rehash(){

@@ -1,8 +1,3 @@
-
-edit
-play_arrow
-
-brightness_4
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -86,7 +81,7 @@ class HashMap
     V deleteNode(int key)
     {
         // Apply hash function to find index for given key
-        int hashIndex = hashCode(key); 
+        int hashIndex = hashCode(key);
 
         //finding the node with given key
         while(arr[hashIndex] != NULL)
