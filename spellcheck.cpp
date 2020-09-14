@@ -45,7 +45,7 @@ bool validWord(string key){
 }
 
 //I don't know why it's forcing me to using 2 files to parse a second time
-void loadDictionary(string dictionary){
+hashTable loadDictionary(string dictionary){
   string str1, str2;
   ifstream file1 (dictionary);
   int numberOfLines = 0;
@@ -68,10 +68,32 @@ void loadDictionary(string dictionary){
   //cout << numberOfLines << endl;
   //h.display();
   file2.close();
+  return h;
 }
 
-void spellCheck(string document){
+void spellCheck(string document, hashTable h){
+  string str;
   ifstream file (document);
+  string word = "";
+  int line = 0;
+  while(getline(file,str)){
+    line++;
+    //cout << str.length() << endl;
+    for (int i = 0; i < str.length(); i++){
+      if(validCharacter(str[i])){
+        word += tolower(str[i]);
+      }
+      if(!validCharacter(str[i]) || (i+1) == str.length() ){
+        if(!h.contains(word)){
+          cout << "Uknown word at line " << line << ": " << word << endl;
+        }
+        word = "";
+      }
+      //cout << "i: " << i << ", string length: " << str.length() << endl;
+    }
+
+  }
+
   file.close();
 }
 
@@ -86,19 +108,8 @@ int main(){
   cout << "Enter name of document to be spell checked: ";
   document = "lyrics.txt";
   cout << document << endl;
-  loadDictionary(dictionary);
-  spellCheck(document);
-  /*
-  string test = "antony";
-  //cout << test << endl;
-  if (validWord(test)){
-    cout << "good" << endl;
-  }
-  if (validWord("&&7fdsf&&dfs")){
-    cout << "error" << endl;
-  }
-  */
-  //parse the dictionary
+  hashTable h = loadDictionary(dictionary);
+  spellCheck(document, h);
 
   return 0;
 }
