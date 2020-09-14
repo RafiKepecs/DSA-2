@@ -71,9 +71,10 @@ hashTable loadDictionary(string dictionary){
   return h;
 }
 
-void spellCheck(string document, hashTable h){
+void spellCheck(string document, string output, hashTable h){
   string str;
   ifstream file (document);
+  ofstream file2 (output);
   string word = "";
   int line = 0;
   while(getline(file,str)){
@@ -86,11 +87,11 @@ void spellCheck(string document, hashTable h){
       if(!validCharacter(str[i]) || (i+1) == str.length()){
         if (word.length() > 20){
           word = word.substr(0,20);
-          cout << "Long word at line " << line << ", starts: " << word << endl;
+          file2 << "Long word at line " << line << ", starts: " << word << "\n";
           word = "";
         }
         else if(!h.contains(word) && word != ""){
-          cout << "Uknown word at line " << line << ": " << word << endl;
+          file2 << "Unknown word at line " << line << ": " << word << "\n";
           //cout << str.length() << endl;
         }
         word = "";
@@ -101,12 +102,13 @@ void spellCheck(string document, hashTable h){
   }
 
   file.close();
+  file2.close();
 }
 
 int main(){
   //hashTable(int) *h = new hashTable(5);
 
-  string dictionary, document;
+  string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
   //cin >> dictionary;
   dictionary = "wordlist_small.txt";
@@ -115,7 +117,10 @@ int main(){
   document = "lyrics.txt";
   cout << document << endl;
   hashTable h = loadDictionary(dictionary);
-  spellCheck(document, h);
+  cout << "Enter name of output file: ";
+  output = "output.txt";
+  cout << output << endl;
+  spellCheck(document, output, h);
 
   return 0;
 }
