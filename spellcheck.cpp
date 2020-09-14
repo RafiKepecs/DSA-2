@@ -84,7 +84,12 @@ void spellCheck(string document, hashTable h){
         word += tolower(str[i]);
       }
       if(!validCharacter(str[i]) || (i+1) == str.length()){
-        if(!h.contains(word) && word != ""){
+        if (word.length() > 20){
+          word = word.substr(0,20);
+          cout << "Long word at line " << line << ", starts: " << word << endl;
+          word = "";
+        }
+        else if(!h.contains(word) && word != ""){
           cout << "Uknown word at line " << line << ": " << word << endl;
           //cout << str.length() << endl;
         }
