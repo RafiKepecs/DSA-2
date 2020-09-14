@@ -45,9 +45,9 @@ bool validWord(string key){
 }
 
 //I don't know why it's forcing me to using 2 files to parse a second time
-void loadDictionary(string input){
+void loadDictionary(string dictionary){
   string str1, str2;
-  ifstream file1 (input);
+  ifstream file1 (dictionary);
   int numberOfLines = 0;
   while(getline(file1,str1)){
     if (validWord(str1)){
@@ -55,7 +55,7 @@ void loadDictionary(string input){
     }
   }
   file1.close();
-  ifstream file2 (input);
+  ifstream file2 (dictionary);
   hashTable h(numberOfLines);
   while(getline(file2,str2)){
     for (int i = 0; i < str2.length(); i++){
@@ -65,24 +65,29 @@ void loadDictionary(string input){
       h.insert(str2);
     }
   }
-  cout << numberOfLines << endl;
+  //cout << numberOfLines << endl;
   //h.display();
   file2.close();
 }
 
-void spellCheck(){
-
+void spellCheck(string document){
+  ifstream file (document);
+  file.close();
 }
 
 int main(){
   //hashTable(int) *h = new hashTable(5);
 
-  string input;
-  cout << "Enter name of input file: ";
-  //cin >> input;
-  input = "wordlist_small.txt";
-  cout << input << endl;
-  loadDictionary(input);
+  string dictionary, document;
+  cout << "Enter name of dictionary file: ";
+  //cin >> dictionary;
+  dictionary = "wordlist_small.txt";
+  cout << dictionary << endl;
+  cout << "Enter name of document to be spell checked: ";
+  document = "lyrics.txt";
+  cout << document << endl;
+  loadDictionary(dictionary);
+  spellCheck(document);
   /*
   string test = "antony";
   //cout << test << endl;
