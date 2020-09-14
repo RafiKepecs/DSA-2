@@ -113,14 +113,23 @@ int main(){
   //cin >> dictionary;
   dictionary = "wordlist_small.txt";
   cout << dictionary << endl;
+  time_t start1, end1;
+  time(&start1);
+  hashTable h = loadDictionary(dictionary);
+  time(&end1);
+  double time_taken1 = double(end1-start1);
+  cout << "Time taken to load dictionary is: " << time_taken1 << endl;
   cout << "Enter name of document to be spell checked: ";
   document = "lyrics.txt";
   cout << document << endl;
-  hashTable h = loadDictionary(dictionary);
   cout << "Enter name of output file: ";
   output = "output.txt";
   cout << output << endl;
+  time_t start2, end2;
+  time(&start2);
   spellCheck(document, output, h);
-
+  time(&end2);
+  double time_taken2 = double(end2-start2);
+  cout << "Time taken to load dictionary is: " << time_taken2 << endl;
   return 0;
 }
