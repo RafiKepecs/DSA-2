@@ -77,15 +77,24 @@ void spellCheck(string document, string output, hashTable h){
   ofstream file2 (output);
   string word = "";
   int line = 0;
+  int digitFlag = 0;
   while(getline(file,str)){
     line++;
     //cout << str.length() << endl;
     for (int i = 0; i < str.length(); i++){
-      if(validCharacter(str[i])){
+      if(48 <= int(str[i]) && int(str[i]) <= 57){
+        word = "";
+        digitFlag = 1;
+      }
+      else if(validCharacter(str[i])){
         word += tolower(str[i]);
       }
       if(!validCharacter(str[i]) || (i+1) == str.length()){
-        if (word.length() > 20){
+        if(digitFlag == 1){
+          digitFlag = 0;
+          word = "";
+        }
+        else if (word.length() > 20){
           word = word.substr(0,20);
           file2 << "Long word at line " << line << ", starts: " << word << "\n";
           word = "";
@@ -110,9 +119,9 @@ int main(){
 
   string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
-  //cin >> dictionary;
-  dictionary = "wordlist_small.txt";
-  cout << dictionary << endl;
+  cin >> dictionary;
+  //dictionary = "wordlist_small.txt";
+  //cout << dictionary << endl;
   time_t start1, end1;
   time(&start1);
   hashTable h = loadDictionary(dictionary);
@@ -120,11 +129,13 @@ int main(){
   double time_taken1 = double(end1-start1);
   cout << "Time taken to load dictionary is: " << time_taken1 << endl;
   cout << "Enter name of document to be spell checked: ";
+  cin >> document;
   document = "lyrics.txt";
-  cout << document << endl;
+  //cout << document << endl;
   cout << "Enter name of output file: ";
-  output = "output.txt";
-  cout << output << endl;
+  cin >> output;
+  //output = "output.txt";
+  //cout << output << endl;
   time_t start2, end2;
   time(&start2);
   spellCheck(document, output, h);
