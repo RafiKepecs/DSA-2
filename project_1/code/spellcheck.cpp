@@ -5,6 +5,7 @@ using namespace std;
 
 //implement file parse with !validCharacter as word separators
 
+//Checks if character is valid
 bool validCharacter(char c){
   int A_bound = 65;
   int Z_bound = 90;
@@ -28,6 +29,7 @@ bool validCharacter(char c){
   }
 }
 
+//checks if word is valid for insert into dictionary
 bool validWord(string key){
   int validLetters = 0;
   for(int i = 0; i < key.length(); i++){
@@ -44,7 +46,7 @@ bool validWord(string key){
   }
 }
 
-//I don't know why it's forcing me to using 2 files to parse a second time
+//loads dictionary into hashtable
 hashTable loadDictionary(string dictionary){
   string str1, str2;
   ifstream file1 (dictionary);
@@ -71,6 +73,7 @@ hashTable loadDictionary(string dictionary){
   return h;
 }
 
+//checks each word in document that is being spellchecked if it is in the dictionary hashtable
 void spellCheck(string document, string output, hashTable h){
   string str;
   ifstream file (document);
@@ -114,6 +117,7 @@ void spellCheck(string document, string output, hashTable h){
   file2.close();
 }
 
+//main code for running the functions and user input
 int main(){
   //hashTable(int) *h = new hashTable(5);
 
@@ -122,25 +126,25 @@ int main(){
   cin >> dictionary;
   //dictionary = "wordlist_small.txt";
   //cout << dictionary << endl;
-  time_t start1, end1;
-  time(&start1);
+  clock_t start1, end1;
+  start1 = clock();
   hashTable h = loadDictionary(dictionary);
-  time(&end1);
-  double time_taken1 = double(end1-start1);
-  cout << "Time taken to load dictionary is: " << time_taken1 << endl;
+  end1 = clock();
+  double time_taken1 = double(end1-start1) / double(CLOCKS_PER_SEC);
+  cout << "Time taken to load dictionary is: " << time_taken1 << "sec" << endl;
   cout << "Enter name of document to be spell checked: ";
   cin >> document;
-  document = "lyrics.txt";
+  //document = "lyrics.txt";
   //cout << document << endl;
   cout << "Enter name of output file: ";
   cin >> output;
   //output = "output.txt";
   //cout << output << endl;
-  time_t start2, end2;
-  time(&start2);
+  clock_t start2, end2;
+  start2 = clock();
   spellCheck(document, output, h);
-  time(&end2);
-  double time_taken2 = double(end2-start2);
-  cout << "Time taken to load dictionary is: " << time_taken2 << endl;
+  end2 = clock();
+  double time_taken2 = double(end2-start2) / double(CLOCKS_PER_SEC);
+  cout << "Time taken to load dictionary is: " << time_taken2 << "sec" << endl;
   return 0;
 }
