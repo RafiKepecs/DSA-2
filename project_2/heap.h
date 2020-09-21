@@ -3,19 +3,19 @@
 
 #include <vector>
 #include <string>
+#include "hash.h"
 
 using namespace std;
 
 class heap {
   public:
-    heap(int size = 0);
-    bool isEmpty() const;
-    int findMin() const;
+    heap(int capacity = 0);
+    //int findMin() const;
 
-    int insert(const string &tmp, const int &key);
-    int deleteMin(const string *tmp, const int *key);
-    int setKey(const string &tmp, const int &key);
-    int remove(const string &tmp, const int* key);
+    int insert(const string &id, const int &key, void *pv = nullptr);
+    int deleteMin(const string *id, const int *key);
+    int setKey(const string &id, const int &key);
+    int remove(const string &id, const int* key);
 
   private:
 
@@ -27,12 +27,15 @@ class heap {
     };
 
     int capacity;
-    int filled;
+    int currentSize;
 
     vector<node> data;
+    hashTable mapping;
 
-    void buildHeap();
-    void percolateDown(int hole);
+    void percolateUp(int posCur);
+    void percolateDown(int posCur);
+    int getPos(node *pn);
+
 };
 
 #endif
