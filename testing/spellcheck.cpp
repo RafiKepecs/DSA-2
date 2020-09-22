@@ -49,14 +49,16 @@ hashTable loadDictionary(string dictionary){
   string str1, str2;
   ifstream file1 (dictionary);
   int numberOfLines = 0;
+  /*
   while(getline(file1,str1)){
     if (validWord(str1)){
       numberOfLines++;
     }
   }
+  */
   file1.close();
   ifstream file2 (dictionary);
-  hashTable h(numberOfLines);
+  hashTable h(49000);
   while(getline(file2,str2)){
     for (int i = 0; i < str2.length(); i++){
       str2[i] = tolower(str2[i]);
@@ -127,7 +129,7 @@ int main(){
   hashTable h = loadDictionary(dictionary);
   end1 = clock();
   double time_taken1 = double(end1-start1) / double(CLOCKS_PER_SEC);
-  cout << "Time taken to load dictionary is: " << time_taken1 << endl;
+  cout << "Time taken to load dictionary is: " << time_taken1 << " secs" << endl;
   cout << "Enter name of document to be spell checked: ";
   //cin >> document;
   document = "lyrics.txt";
@@ -141,6 +143,6 @@ int main(){
   spellCheck(document, output, h);
   end2 = clock();
   double time_taken2 = double(end2-start2) / double(CLOCKS_PER_SEC);
-  cout << "Time taken to spellcheck file is: " << time_taken2 << endl;
+  cout << "Time taken to spellcheck file is: " << time_taken2 << " secs" << endl;
   return 0;
 }

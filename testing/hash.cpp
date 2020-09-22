@@ -45,8 +45,10 @@ int hashTable::insert(const string &key, void *pv){
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
   //rehash
-
+  //cout << data.size()/2 << endl;
+  //cout << filled << endl;
   if(++filled > data.size()/2){
+    cout << "reshash called" << endl;
     rehash();
     if(filled > data.size()/2){ //rehash failure
       return 2;
@@ -127,7 +129,7 @@ bool hashTable::rehash(){
   filled = 0;
   for(auto & entry : oldData){
     if(entry.isOccupied){
-      insert(std::move(entry.key));
+      insert(entry.key);
     }
   }
   //cout << "reshash called" << endl;
@@ -150,7 +152,7 @@ unsigned int hashTable::getPrime(int size){
   int primes[7] = {49157, 98317, 196613, 393241, 786433, 1572869, 3145739};
   int prime = 0;
   for (int i = 0; i < 7; i++){
-    if ((primes[i]/2) < size){
+    if ((primes[i]) < size){
     }
     else{
       prime = primes[i];
@@ -162,6 +164,7 @@ unsigned int hashTable::getPrime(int size){
 }
 //*/
 
+//function mostly used for testing purposes
 void hashTable::display()
     {
         //cout << capacity << endl;
