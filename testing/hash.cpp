@@ -122,6 +122,10 @@ int hashTable::findPos(const string &key){
 bool hashTable::rehash(){
   vector<hashItem> oldData = data;
   data.resize(getPrime(2*oldData.size()));
+  if(data.size() <= oldData.size()){
+    cout << "Rehash failed" << endl;
+    return false;
+  }
   for(auto & entry : data){
     entry.key = "";
     entry.isOccupied = false;
