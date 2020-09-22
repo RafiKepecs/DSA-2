@@ -3,14 +3,13 @@
 #include "hash.h"
 using namespace std;
 
-//implement file parse with !validCharacter as word separators
 
+//function to determine if a character is valid
 bool validCharacter(char c){
   int A_bound = 65;
   int Z_bound = 90;
   int a_bound = 97;
   int z_bound = 122;
-  //NOTE - check if the digit values are actually using ascii!!!
   int zero_bound = 48;
   int nine_bound = 57;
   int dash = 45;
@@ -28,6 +27,7 @@ bool validCharacter(char c){
   }
 }
 
+//Determins if word is valid
 bool validWord(string key){
   int validLetters = 0;
   for(int i = 0; i < key.length(); i++){
@@ -35,7 +35,6 @@ bool validWord(string key){
       validLetters++;
     }
   }
-  //cout << validLetters << endl;
   if (validLetters == key.length()){
     return true;
   }
@@ -44,35 +43,25 @@ bool validWord(string key){
   }
 }
 
-//I don't know why it's forcing me to using 2 files to parse a second time
+//Loads dictionary into hashTable
 hashTable loadDictionary(string dictionary){
-  string str1, str2;
-  ifstream file1 (dictionary);
+  string str;
+  ifstream file (dictionary);
   int numberOfLines = 0;
-  /*
-  while(getline(file1,str1)){
-    if (validWord(str1)){
-      numberOfLines++;
-    }
-  }
-  */
-  file1.close();
-  ifstream file2 (dictionary);
   hashTable h(49000);
-  while(getline(file2,str2)){
-    for (int i = 0; i < str2.length(); i++){
-      str2[i] = tolower(str2[i]);
+  while(getline(file,str)){
+    for (int i = 0; i < str.length(); i++){
+      str[i] = tolower(str[i]);
     }
-    if (validWord(str2)){
-      h.insert(str2);
+    if (validWord(str)){
+      h.insert(str);
     }
   }
-  //cout << numberOfLines << endl;
-  //h.display();
-  file2.close();
+  file.close();
   return h;
 }
 
+//Spellchecks a file based on loaded dictionary and outputs to output file
 void spellCheck(string document, string output, hashTable h){
   string str;
   ifstream file (document);
@@ -82,7 +71,6 @@ void spellCheck(string document, string output, hashTable h){
   int digitFlag = 0;
   while(getline(file,str)){
     line++;
-    //cout << str.length() << endl;
     for (int i = 0; i < str.length(); i++){
       if(48 <= int(str[i]) && int(str[i]) <= 57){
         word = "";
@@ -103,11 +91,9 @@ void spellCheck(string document, string output, hashTable h){
         }
         else if(!h.contains(word) && word != ""){
           file2 << "Unknown word at line " << line << ": " << word << "\n";
-          //cout << str.length() << endl;
         }
         word = "";
       }
-      //cout << "i: " << i << ", string length: " << str.length() << endl;
     }
 
   }
@@ -117,13 +103,11 @@ void spellCheck(string document, string output, hashTable h){
 }
 
 int main(){
-  //hashTable(int) *h = new hashTable(5);
-
   string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
-  //cin >> dictionary;
-  dictionary = "wordlist_small.txt";
-  cout << dictionary << endl;
+  cin >> dictionary;
+  //dictionary = "wordlist_small.txt";
+  //cout << dictionary << endl;
   clock_t start1, end1;
   start1 = clock();
   hashTable h = loadDictionary(dictionary);
@@ -131,13 +115,13 @@ int main(){
   double time_taken1 = double(end1-start1) / double(CLOCKS_PER_SEC);
   cout << "Time taken to load dictionary is: " << time_taken1 << " secs" << endl;
   cout << "Enter name of document to be spell checked: ";
-  //cin >> document;
-  document = "lyrics.txt";
-  cout << document << endl;
+  cin >> document;
+  //document = "lyrics.txt";
+  //cout << document << endl;
   cout << "Enter name of output file: ";
-  //cin >> output;
-  output = "output.txt";
-  cout << output << endl;
+  cin >> output;
+  //output = "output.txt";
+  //cout << output << endl;
   clock_t start2, end2;
   start2 = clock();
   spellCheck(document, output, h);

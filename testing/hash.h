@@ -33,7 +33,7 @@ class hashTable {
   // If an optional pointer to a bool is provided,
   // set the bool to true if the key is in the hash table,
   // and set the bool to false otherwise.
-  void *getPointer(const std::string &key, bool *b = nullptr);
+  bool *getPointer(const std::string &key, bool *b = nullptr);
 
   // Set the pointer associated with the specified key.
   // Returns 0 on success,
@@ -45,6 +45,7 @@ class hashTable {
   // false if the specified key is not in the hash table.
   bool remove(const std::string &key);
 
+  //displays all elements of hashTable for debugging purposes
   void display();
 
 
