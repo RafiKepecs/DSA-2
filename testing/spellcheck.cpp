@@ -5,7 +5,6 @@ using namespace std;
 
 //implement file parse with !validCharacter as word separators
 
-//Checks if character is valid
 bool validCharacter(char c){
   int A_bound = 65;
   int Z_bound = 90;
@@ -29,7 +28,6 @@ bool validCharacter(char c){
   }
 }
 
-//checks if word is valid for insert into dictionary
 bool validWord(string key){
   int validLetters = 0;
   for(int i = 0; i < key.length(); i++){
@@ -46,29 +44,20 @@ bool validWord(string key){
   }
 }
 
-//loads dictionary into hashtable
+//I don't know why it's forcing me to using 2 files to parse a second time
 hashTable loadDictionary(string dictionary){
   string str1, str2;
   ifstream file1 (dictionary);
   int numberOfLines = 0;
-  /*
   while(getline(file1,str1)){
     if (validWord(str1)){
       numberOfLines++;
     }
   }
-  */
   file1.close();
   ifstream file2 (dictionary);
-  int size = 49000;
-  hashTable h(size);
+  hashTable h(numberOfLines);
   while(getline(file2,str2)){
-    //numberOfLines++;
-    /*
-    if(numberOfLines > size){
-      h.rehash();
-    }
-    */
     for (int i = 0; i < str2.length(); i++){
       str2[i] = tolower(str2[i]);
     }
@@ -82,7 +71,6 @@ hashTable loadDictionary(string dictionary){
   return h;
 }
 
-//checks each word in document that is being spellchecked if it is in the dictionary hashtable
 void spellCheck(string document, string output, hashTable h){
   string str;
   ifstream file (document);
@@ -126,34 +114,33 @@ void spellCheck(string document, string output, hashTable h){
   file2.close();
 }
 
-//main code for running the functions and user input
 int main(){
   //hashTable(int) *h = new hashTable(5);
 
   string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
-  cin >> dictionary;
-  //dictionary = "wordlist_small.txt";
-  //cout << dictionary << endl;
+  //cin >> dictionary;
+  dictionary = "wordlist_small.txt";
+  cout << dictionary << endl;
   clock_t start1, end1;
   start1 = clock();
   hashTable h = loadDictionary(dictionary);
   end1 = clock();
   double time_taken1 = double(end1-start1) / double(CLOCKS_PER_SEC);
-  cout << "Time taken to load dictionary is: " << time_taken1 << "sec" << endl;
+  cout << "Time taken to load dictionary is: " << time_taken1 << endl;
   cout << "Enter name of document to be spell checked: ";
-  cin >> document;
-  //document = "lyrics.txt";
-  //cout << document << endl;
+  //cin >> document;
+  document = "lyrics.txt";
+  cout << document << endl;
   cout << "Enter name of output file: ";
-  cin >> output;
-  //output = "output.txt";
-  //cout << output << endl;
+  //cin >> output;
+  output = "output.txt";
+  cout << output << endl;
   clock_t start2, end2;
   start2 = clock();
   spellCheck(document, output, h);
   end2 = clock();
   double time_taken2 = double(end2-start2) / double(CLOCKS_PER_SEC);
-  cout << "Time taken to spellcheck document is: " << time_taken2 << "sec" << endl;
+  cout << "Time taken to spellcheck file is: " << time_taken2 << endl;
   return 0;
 }

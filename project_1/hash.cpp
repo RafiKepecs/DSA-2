@@ -45,10 +45,9 @@ int hashTable::insert(const string &key, void *pv){
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
   //rehash
-  cout << data.size()/2 << endl;
-  cout << filled << endl;
+  cout << "test" << endl;
   if(++filled > data.size()/2){
-    cout << "test" << endl;
+
     rehash();
     if(filled > data.size()/2){ //rehash failure
       return 2;
@@ -91,7 +90,6 @@ int hashTable::hash(const string &key){
 
     /*
     int sum = 0;
-
     for (int k = 0; k < key.length(); k++){
         sum = sum + int(key[k]);
         //cout << sum << endl;
@@ -129,10 +127,10 @@ bool hashTable::rehash(){
   filled = 0;
   for(auto & entry : oldData){
     if(entry.isOccupied){
-      insert(entry.key);
+      insert(std::move(entry.key));
     }
   }
-  cout << "reshash called" << endl;
+  //cout << "reshash called" << endl;
   return true;
 }
 /*
@@ -167,6 +165,9 @@ unsigned int hashTable::getPrime(int size){
 void hashTable::display()
     {
         //cout << capacity << endl;
+        if(capacity == 0){
+            cout << "error" << endl;
+        }
         for(int i = 0 ; i < capacity ; i++)
         {
             //cout << "test" << endl;

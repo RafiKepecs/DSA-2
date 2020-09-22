@@ -45,10 +45,8 @@ int hashTable::insert(const string &key, void *pv){
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
   //rehash
-  cout << data.size()/2 << endl;
-  cout << filled << endl;
+
   if(++filled > data.size()/2){
-    cout << "test" << endl;
     rehash();
     if(filled > data.size()/2){ //rehash failure
       return 2;
@@ -129,10 +127,10 @@ bool hashTable::rehash(){
   filled = 0;
   for(auto & entry : oldData){
     if(entry.isOccupied){
-      insert(entry.key);
+      insert(std::move(entry.key));
     }
   }
-  cout << "reshash called" << endl;
+  //cout << "reshash called" << endl;
   return true;
 }
 /*
