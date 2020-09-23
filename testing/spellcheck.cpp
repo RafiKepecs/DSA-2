@@ -58,7 +58,7 @@ hashTable loadDictionary(string dictionary){
     }
     if (validWord(str)){
       h.insert(str);
-      cout << str << endl;
+      //cout << str << endl;
       //if(h.data.size() == 196613){
         //cout << str << endl;
       //}
@@ -113,9 +113,9 @@ void spellCheck(string document, string output, hashTable h){
 int main(){
   string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
-  //cin >> dictionary;
-  dictionary = "wordlist_big.txt";
-  cout << dictionary << endl;
+  cin >> dictionary;
+  //dictionary = "wordlist_big.txt";
+  //cout << dictionary << endl;
   clock_t start1, end1;
   start1 = clock();
   hashTable h = loadDictionary(dictionary);
@@ -124,13 +124,13 @@ int main(){
   cout << "Time taken to load dictionary is: " << time_taken1 << " secs" << endl;
   h.display();
   cout << "Enter name of document to be spell checked: ";
-  //cin >> document;
-  document = "lyrics.txt";
-  cout << document << endl;
+  cin >> document;
+  //document = "lyrics.txt";
+  //cout << document << endl;
   cout << "Enter name of output file: ";
-  //cin >> output;
-  output = "output.txt";
-  cout << output << endl;
+  cin >> output;
+  //output = "output.txt";
+  //cout << output << endl;
   clock_t start2, end2;
   start2 = clock();
   spellCheck(document, output, h);
