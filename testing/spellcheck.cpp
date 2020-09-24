@@ -35,13 +35,10 @@ bool validWord(string &key){
       validLetters++;
     }
   }
-  //cout << key << endl;// ", " << validLetters << ", " << key.length() << endl;
   if (validLetters == key.length()){
-    //cout << key << endl;
     return true;
   }
   else{
-    //cout << "error in key: " << key << endl;
     return false;
   }
 }
@@ -58,11 +55,6 @@ hashTable loadDictionary(string dictionary){
     }
     if (validWord(str)){
       h.insert(str);
-      //cout << str << endl;
-      //if(h.data.size() == 196613){
-        //cout << str << endl;
-      //}
-
     }
   }
   file.close();
@@ -114,8 +106,6 @@ int main(){
   string dictionary, document, output;
   cout << "Enter name of dictionary file: ";
   cin >> dictionary;
-  //dictionary = "wordlist_big.txt";
-  //cout << dictionary << endl;
   clock_t start1, end1;
   start1 = clock();
   hashTable h = loadDictionary(dictionary);
@@ -125,12 +115,8 @@ int main(){
   h.display();
   cout << "Enter name of document to be spell checked: ";
   cin >> document;
-  //document = "lyrics.txt";
-  //cout << document << endl;
   cout << "Enter name of output file: ";
   cin >> output;
-  //output = "output.txt";
-  //cout << output << endl;
   clock_t start2, end2;
   start2 = clock();
   spellCheck(document, output, h);
