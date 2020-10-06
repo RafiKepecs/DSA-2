@@ -16,16 +16,6 @@ int heap::findMin() const{
 */
 
 int heap::insert(const string &tmp, const int &key, void *pv){
-  //skipping resizing for know
-  //percolateUp
-  // currentSize++;
-
-  //currently in progress
-  // percolateUp(currentSize);
-  // for(auto it : data){
-  //   cout << "Key: " << it.key << ", String: " << it.id << endl;
-  // }
-  // return 0;
   ++currentSize;
   data[0].key = key;
   data[0].id = tmp;
