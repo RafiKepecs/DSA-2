@@ -18,15 +18,32 @@ int heap::findMin() const{
 int heap::insert(const string &tmp, const int &key, void *pv){
   //skipping resizing for know
   //percolateUp
-  currentSize++;
+  // currentSize++;
+
+  //currently in progress
+  // percolateUp(currentSize);
+  // for(auto it : data){
+  //   cout << "Key: " << it.key << ", String: " << it.id << endl;
+  // }
+  // return 0;
+  int hole = ++currentSize;
   data[0].key = key;
   data[0].id = tmp;
-  //currently in progress
-  percolateUp(currentSize);
+  data[hole] = data[0];
+  for( ; data[0].key < data[hole/2].key; hole /= 2){
+    data[hole] = data[hole/2];
+  }
+  data[hole] = data[0];
+  data[0] = node();
   for(auto it : data){
     cout << "Key: " << it.key << ", String: " << it.id << endl;
   }
   return 0;
+}
+
+//currently in progress
+void heap::percolateUp(int posCur){
+
 }
 
 int heap::deleteMin(const string *tmp, const int *key){
@@ -39,15 +56,6 @@ int heap::setKey(const string &tmp, const int &key){
 
 int heap::remove(const string &tmp, const int* key){
   return 0;
-}
-
-//currently in progress
-void heap::percolateUp(int posCur){
-  for ( ; data[posCur].key < data[posCur/2].key; posCur/=2){
-    data[posCur] = data[posCur/2];
-  }
-  data[posCur] = data[0];
-  return;
 }
 
 //percolateDown implementation based on textbook, still unfinished
