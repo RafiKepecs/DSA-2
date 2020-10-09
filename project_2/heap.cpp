@@ -37,11 +37,6 @@ void heap::percolateUp(int posCur){
 
 int heap::deleteMin(const string *tmp, const int *key){
   data[1] = data[currentSize--];
-  for(auto it : data){
-    cout << "Key: " << it.key << ", String: " << it.id << endl;
-  }
-  cout << ".1" << endl;
-  //data[capacity-1] = node();
   percolateDown(1);
   for(auto it : data){
     cout << "Key: " << it.key << ", String: " << it.id << endl;
@@ -60,21 +55,20 @@ int heap::remove(const string &tmp, const int* key){
 //percolateDown implementation based on textbook, still unfinished
 void heap::percolateDown(int posCur){
   int child;
-  data[0] = data[posCur];
   for( ; posCur * 2 <= currentSize; posCur = child){
     child = posCur * 2;
     if (child != currentSize && data[child+1].key < data[child].key){
       ++child;
     }
-    if (data[child].key < data[0].key){
+    if (data[child].key < data[currentSize+1].key){
       data[posCur] = data[child];
     }
     else{
       break;
     }
-    data[posCur] = data[0];
-    // continue here!
   }
+  data[posCur] = data[currentSize+1];
+  data[currentSize+1] = node();
   return;
 }
 
