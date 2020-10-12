@@ -16,6 +16,12 @@ int heap::findMin() const{
 
 int heap::insert(const string &tmp, int key, void *pv){
   ++currentSize;
+  for(auto it : data){
+    if(it.id == tmp){
+      //error
+      return 2;
+    }
+  }
   data[0].key = key;
   data[0].id = tmp;
   percolateUp(currentSize);
@@ -40,6 +46,10 @@ void heap::percolateUp(int posCur){
 }
 
 int heap::deleteMin(string *tmp, int *pkey, void *ppData){
+  if(currentSize == 0){
+    //error
+    return 1;
+  }
   mapping.remove(data[1].id);
   data[1] = data[currentSize--];
   percolateDown(1);
@@ -69,8 +79,12 @@ int heap::setKey(const string &tmp, int key){
 
 //wasn't able to use static_casting, regular casting seems to be working...
 int heap::remove(const string &tmp, int *pkey, void *ppData){
+  if(!mapping.contains(tmp)){
+    //error
+    return 1;
+  }
   //cout << ".1" << endl;
-  bool *pt = (bool *) ppData;
+  //bool *pt = (bool *) ppData;
   //cout << ".2" << endl;
   // node *pn = (node *) (mapping.getPointer(tmp, pt));
   node *pn = static_cast<node *> (mapping.getPointer(tmp));
