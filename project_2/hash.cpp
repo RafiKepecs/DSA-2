@@ -25,11 +25,6 @@ int hashTable::insert(const string &key, void *pv){
       return 2;
     }
   }
-  for(auto it : data){
-    if(it.key != ""){
-      cout << "hash key: " << it.key << endl;
-    }
-  }
   return 0;
 }
 
@@ -108,11 +103,6 @@ int hashTable::setPointer(const std::string &key, void *pv){
 bool hashTable::remove(const std::string &key){
   int currentPos = hash(key);
   data[currentPos] = hashItem();
-  for(auto it : data){
-    if(it.key != ""){
-      cout << "hash key: " << it.key << endl;
-    }
-  }
   return false;
 }
 
@@ -131,16 +121,23 @@ unsigned int hashTable::getPrime(int size){
 }
 
 //function mostly used for testing purposes
-void hashTable::display()
-    {
-        string str;
-        ofstream file ("test.txt");
-        for(int i = 0 ; i < capacity ; i++)
-        {
-            if(data[i].isOccupied){
-                file <<  data[i].key << endl;
-            }
-            else{
-            }
-        }
+void hashTable::display(){
+  cout << "*** HASH TABLE ***" << endl;
+  for(auto it : data){
+      if(it.isOccupied){
+        cout << "hash key: " << it.key << endl;
+      }
+  }
+  cout << endl;
+
+        // string str;
+        // ofstream file ("test.txt");
+        // for(int i = 0 ; i < capacity ; i++)
+        // {
+        //     if(data[i].isOccupied){
+        //         file <<  data[i].key << endl;
+        //     }
+        //     else{
+        //     }
+        // }
     }

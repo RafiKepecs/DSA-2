@@ -19,10 +19,9 @@ int heap::insert(const string &tmp, int key, void *pv){
   data[0].key = key;
   data[0].id = tmp;
   percolateUp(currentSize);
-  for(auto it : data){
-    cout << "Key: " << it.key << ", String: " << it.id << endl;
-  }
   mapping.insert(tmp);
+  display();
+  mapping.display();
   //mapping.setPointer(data[posCur].id, &data[posCur]);
   return 0;
 }
@@ -35,6 +34,7 @@ void heap::percolateUp(int posCur){
     //getPos(&data[posCur]);
   }
   data[posCur] = data[0];
+  cout << posCur << ", " << currentSize << ", " << data[0].key << endl;;
   mapping.setPointer(data[posCur].id, &data[posCur]);
   data[0] = node();
 }
@@ -43,26 +43,27 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
   mapping.remove(data[1].id);
   data[1] = data[currentSize--];
   percolateDown(1);
-  for(auto it : data){
-    cout << "Key: " << it.key << ", String: " << it.id << endl;
-  }
+  display();
+  mapping.display();
   return 0;
 }
 
 int heap::setKey(const string &tmp, int key){
   node *pn = static_cast<node *> (mapping.getPointer(tmp));
   int posCur = getPos(pn);
+  // cout << posCur << endl;
   if(data[posCur].key < key){
     data[posCur].key = key;
     percolateDown(posCur);
   }
   else if (data[posCur].key > key){
-    data[posCur].key = key;
+    data[0].key = key;
+    data[0].id = tmp;
+    // cout << ".2" << endl;
     percolateUp(posCur);
   }
-  for(auto it : data){
-    cout << "Key: " << it.key << ", String: " << it.id << endl;
-  }
+  display();
+  mapping.display();
   return 0;
 }
 
@@ -82,15 +83,15 @@ int heap::remove(const string &tmp, int *pkey, void *ppData){
   data[posCur] = data[currentSize--];
   //cout << ".5" << endl;
   percolateDown(posCur);
-  for(auto it : data){
-    cout << "Key: " << it.key << ", String: " << it.id << endl;
-  }
+  display();
+  mapping.display();
   return 0;
 }
 
 //percolateDown implementation based on textbook, still unfinished
 void heap::percolateDown(int posCur){
   int child;
+  data[currentSize+1] = data[posCur];
   for( ; posCur * 2 <= currentSize; posCur = child){
     child = posCur * 2;
     if (child != currentSize && data[child+1].key < data[child].key){
@@ -113,4 +114,14 @@ void heap::percolateDown(int posCur){
 int heap::getPos(node *pn){
   int pos = pn - &data[0];
   return pos;
+}
+
+void heap::display(){
+  cout << "*** HEAP ***" << endl;
+  for(auto it : data){
+    if(it.id != ""){
+      cout << "Key: " << it.key << ", String: " << it.id << endl;
+    }
+  }
+  cout << endl;
 }

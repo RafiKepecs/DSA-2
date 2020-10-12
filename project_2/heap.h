@@ -16,6 +16,7 @@ class heap {
     int deleteMin(string *pId = nullptr, int *pkey = nullptr, void *ppData = nullptr);
     int setKey(const string &id, int key);
     int remove(const string &id, int *pkey = nullptr, void *ppData = nullptr);
+    void display();
 
   private:
 
