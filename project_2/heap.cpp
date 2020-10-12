@@ -64,8 +64,8 @@ int heap::remove(const string &tmp, int *pkey, void *ppData){
   //cout << ".3" << endl;
   int posCur = getPos(pn);
   //cout << ".4" << endl;
-  cout << posCur << ", ";
-  cout << data[currentSize-1].key << endl;
+  //cout << posCur << ", ";
+  //cout << data[currentSize-1].key << endl;
   data[posCur] = data[currentSize--];
   //cout << ".5" << endl;
   percolateDown(posCur);
