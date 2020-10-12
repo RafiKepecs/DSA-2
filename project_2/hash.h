@@ -13,9 +13,6 @@ class hashTable {
   // the specified size for the initial size of the hash table.
   hashTable(int size = 0);
 
-  //I added this function based on the textbook, but it seems to be unnecessary because each isOccupied element is initialized to {false}
-  //void makeEmpty();
-
   // Insert the specified key into the hash table.
   // If an optional pointer is provided,
   // associate that pointer with the key.
@@ -45,6 +42,7 @@ class hashTable {
   // false if the specified key is not in the hash table.
   bool remove(const std::string &key);
 
+  //displays all elements of hashTable for debugging purposes
   void display();
 
 

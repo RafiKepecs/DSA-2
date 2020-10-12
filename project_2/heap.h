@@ -9,13 +9,13 @@ using namespace std;
 
 class heap {
   public:
-    heap(int capacity = 0);
+    heap(int capacity);
     //int findMin() const;
 
-    int insert(const string &id, const int &key, void *pv = nullptr);
-    int deleteMin(const string *id, const int *key);
-    int setKey(const string &id, const int &key);
-    int remove(const string &id, const int* key);
+    int insert(const string &id, int key, void *pv = nullptr);
+    int deleteMin(string *pId = nullptr, int *pkey = nullptr, void *ppData = nullptr);
+    int setKey(const string &id, int key);
+    int remove(const string &id, int *pkey = nullptr, void *ppData = nullptr);
 
   private:
 
