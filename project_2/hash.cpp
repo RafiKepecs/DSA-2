@@ -89,18 +89,18 @@ bool hashTable::rehash(){
 
 void* hashTable::getPointer(const std::string &key, bool *b){
   int currentPos = hash(key);
-  cout << "getPointer of: " << data[currentPos].key << endl;
-  //bool *pt = (bool *) data[currentPos].pv;
-  if(data[currentPos].pv == nullptr){
-    cout << "error" << endl;
-  }
+  // cout << "getPointer of: " << data[currentPos].key << endl;
+  // //bool *pt = (bool *) data[currentPos].pv;
+  // if(data[currentPos].pv == nullptr){
+  //   cout << "error" << endl;
+  // }
   return data[currentPos].pv;
   // return pt;
 }
 
 int hashTable::setPointer(const std::string &key, void *pv){
   int currentPos = hash(key); //look up position of input Key
-  cout << "setPointer of: " << data[currentPos].key << endl;
+  // cout << "setPointer of: " << data[currentPos].key << endl;
   data[currentPos].pv = pv; //set pointer member of item in hashtable equal to location of item in heap
   return 0;
 }

@@ -50,7 +50,19 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
 }
 
 int heap::setKey(const string &tmp, int key){
-
+  node *pn = static_cast<node *> (mapping.getPointer(tmp));
+  int posCur = getPos(pn);
+  if(data[posCur].key < key){
+    data[posCur].key = key;
+    percolateDown(posCur);
+  }
+  else if (data[posCur].key > key){
+    data[posCur].key = key;
+    percolateUp(posCur);
+  }
+  for(auto it : data){
+    cout << "Key: " << it.key << ", String: " << it.id << endl;
+  }
   return 0;
 }
 
@@ -66,6 +78,7 @@ int heap::remove(const string &tmp, int *pkey, void *ppData){
   //cout << ".4" << endl;
   //cout << posCur << ", ";
   //cout << data[currentSize-1].key << endl;
+  mapping.remove(data[posCur].id);
   data[posCur] = data[currentSize--];
   //cout << ".5" << endl;
   percolateDown(posCur);
