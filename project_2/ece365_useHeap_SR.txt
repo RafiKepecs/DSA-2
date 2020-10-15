@@ -205,7 +205,7 @@ Choose an option: 4
 Call to 'deleteMin' returned: 0
 
 Deleted item with string id "string five" and key 60
-
+1
 Options:
 1 - Insert a new item into the binary heap
 2 - Set the key of a specified item
