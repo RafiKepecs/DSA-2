@@ -17,8 +17,6 @@ int hashTable::insert(const string &key, void *pv){
   }
   data[currentPos].key = key;
   data[currentPos].isOccupied = true;
-  data[currentPos].isDeleted = false;
-  data[currentPos].pv = pv;
   //rehash
   if(++filled > data.size()/2){
 
@@ -75,7 +73,7 @@ bool hashTable::rehash(){
   }
   filled = 0;
   for(auto entry : oldData){
-    if(entry.isOccupied && !entry.isDeleted){
+    if(entry.isOccupied){
       insert(entry.key);
     }
   }
@@ -105,7 +103,6 @@ int hashTable::setPointer(const std::string &key, void *pv){
 bool hashTable::remove(const std::string &key){
   int currentPos = hash(key);
   data[currentPos] = hashItem();
-  data[currentPos].isDeleted = true;
   return false;
 }
 

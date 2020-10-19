@@ -6,27 +6,20 @@ using namespace std;
 heap::heap(int capacity):mapping(capacity*2){
     // Allocate space for the nodes (0 slot is not used)
     data.resize(capacity+1);
-    // currentSize = 0;
+    currentSize = 0;
 }
 
 int heap::insert(const string &tmp, int key, void *pv){
-  // if(currentSize == capacity){
-  //   return 1;
-  // }
-
   if(mapping.contains(tmp)){
-    //error
-    // display();
-    return 2;
+      //error
+      return 2;
   }
-  else {
-    int posCur = currentSize+1;
-    data[0].key = key;
-    data[0].id = tmp;
-    mapping.insert(tmp, &data[posCur]);
-    percolateUp(++currentSize);
-    // display();
-  }
+  ++currentSize;
+  data[0].key = key;
+  data[0].id = tmp;
+  mapping.insert(tmp);
+  percolateUp(currentSize);
+  display();
   return 0;
 }
 
@@ -42,9 +35,8 @@ void heap::percolateUp(int posCur){
 }
 
 int heap::deleteMin(string *tmp, int *pkey, void *ppData){
-  if(currentSize <= 0){
+  if(currentSize == 0){
     //error
-    // display();
     return 1;
   }
   *tmp = data[1].id;
@@ -52,14 +44,12 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
   mapping.remove(data[1].id);
   data[1] = data[currentSize--];
   percolateDown(1);
-  data[currentSize+1] = node();
-  // display();
+  display();
   return 0;
 }
 
 int heap::setKey(const string &tmp, int key){
   if(!mapping.contains(tmp)){
-    // display();
     return 1;
   }
   node *pn = static_cast<node *> (mapping.getPointer(tmp));
@@ -73,38 +63,31 @@ int heap::setKey(const string &tmp, int key){
     data[0].id = tmp;
     percolateUp(posCur);
   }
-  // cout << "posCur: " << posCur << endl;
-  // display();
+  display();
   return 0;
 }
 
 int heap::remove(const string &tmp, int *pkey, void *ppData){
-  if(!mapping.contains(tmp) || currentSize <= 0){
+  if(!mapping.contains(tmp)){
     //error
-    // display();
     return 1;
   }
 
   node *pn = static_cast<node *> (mapping.getPointer(tmp));
   int posCur = getPos(pn);
   int oldKey = data[posCur].key;
-  // if(pkey != nullptr){
-    *pkey = data[posCur].key;
-  // }
+  *pkey = data[posCur].key;
   mapping.remove(data[posCur].id);
   data[posCur] = data[currentSize--];
-  data[currentSize+1] = node();
 
 //test if new key is bigger or smaller than old key - may need to use percolateUp!!
-  if(data[posCur].key <= oldKey){
-    data[0] = data[posCur];
+  if(data[posCur].key < oldKey){
     percolateUp(posCur);
   }
   else{
     percolateDown(posCur);
   }
-  // cout << "posCur: " << posCur << endl;
-  // display();
+  display();
   return 0;
 }
 
@@ -127,6 +110,7 @@ void heap::percolateDown(int posCur){
   }
   data[posCur] = data[0];
   mapping.setPointer(data[posCur].id, &data[posCur]);
+  data[currentSize+1] = node();
   data[0] = node();
   return;
 }
@@ -137,10 +121,10 @@ int heap::getPos(node *pn){
 }
 
 void heap::display(){
-  cout << "Current Size: " << currentSize << endl;
+  cout << "currentSize: " << currentSize << endl;
   cout << "*** HEAP ***" << endl;
   for(auto it : data){
-    if(mapping.contains(it.id)){
+    if(it.id != ""){
       cout << "Key: " << it.key << ", String: " << it.id << endl;
     }
   }

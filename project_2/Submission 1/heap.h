@@ -28,7 +28,7 @@ class heap {
     };
 
     int capacity;
-    int currentSize = 0;
+    int currentSize;
 
     vector<node> data;
     hashTable mapping;
