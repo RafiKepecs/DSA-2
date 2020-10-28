@@ -11,7 +11,11 @@ using namespace std;
 
 class graph {
   graph(int capacity);
-  
+
+  int insert();
+
+  void display();
+
   public:
 
   private:
@@ -19,6 +23,8 @@ class graph {
     public:
 
     };
+
+
 
     int dijkstra();
 
