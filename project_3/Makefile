@@ -1,8 +1,11 @@
-dij.exe: dij.o heap.o hash.o
-	g++ -o dij.exe dij.o heap.o hash.o
+dij.exe: dij.o graph.o heap.o hash.o
+	g++ -o dij.exe dij.o graph.o heap.o hash.o
 
-dij.o: dij.cpp dij.h
+dij.o: dij.cpp
 	g++ -c dij.cpp
+
+graph.o: graph.cpp graph.h
+	g++ -c graph.cpp
 
 heap.o: heap.cpp heap.h
 	g++ -c heap.cpp
@@ -13,7 +16,7 @@ hash.o: hash.cpp hash.h
 
 
 debug:
-	g++ -g -o dij.exe dij.cpp heap.cpp hash.cpp
+	g++ -g -o dij.exe dij.cpp graph.cpp heap.cpp hash.cpp
 
 clean:
 	rm -f *.exe *.o *.stackdump *~

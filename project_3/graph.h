@@ -1,5 +1,5 @@
-#ifndef _DIJ_H
-#define _DIJ_H
+#ifndef _GRAPH_H
+#define _GRAPH_H
 
 #include <vector>
 #include <string>
@@ -10,22 +10,18 @@
 using namespace std;
 
 class graph {
-  graph(int capacity);
-
-  int insert();
-
-  void display();
-
   public:
+    graph(int capacity);
+    int insert();
+    void display();
 
   private:
-    class node {
+    class edge {
     public:
-
+      int dest;
+      int cost;
     };
-
-
-
+    list<edge> test;
     int dijkstra();
 
 };
