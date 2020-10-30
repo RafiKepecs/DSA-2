@@ -9,9 +9,9 @@
 
 using namespace std;
 
-class graph {
+class Graph {
   public:
-    graph(int capacity);
+    Graph(int capacity = 0);
     int insert();
     void display();
 
@@ -22,9 +22,7 @@ class graph {
       int cost;
     };
     list<edge> test;
-    int dijkstra();
-
+    // int dijkstra();
 };
-
 
 #endif

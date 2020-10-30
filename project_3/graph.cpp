@@ -1,17 +1,18 @@
+#include <iostream>
 #include "graph.h"
 using namespace std;
 
-graph::graph(int capactiy){
+Graph::Graph(int capacity){
 }
 
-int graph::insert(){
+int Graph::insert(){
   return 0;
 }
 
-void graph::display(){
+void Graph::display(){
   return;
 }
 
-int graph::dijkstra(){
-  return 0;
-}
+// int graph::dijkstra(){
+//   return 0;
+// }
