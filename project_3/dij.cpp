@@ -11,31 +11,39 @@ Graph loadGraph(string graph){
   int capacity = 100;
   Graph g(capacity);
   bool vs_flag, ve_flag;
-  string vs, ve;
+  string vs, ve, word;
   int cost;
   while(getline(file,str)){
     vs_flag = false;
     ve_flag = false;
+    word = "";
+    vs = "";
+    ve = "";
+    cost = 0;
     for(auto it : str){
-      if(it == ' '){
+      if(it == ' ' || it == *(str.end()-1)){
         if(!vs_flag){
           vs_flag = true;
-          vs = str;
+          vs = word;
         }
         else if(!ve_flag){
           ve_flag = true;
-          ve = str;
+          ve = word;
         }
         else{
-          cost = stoi(str);
+          cost = stoi(word);
         }
-        // word = "";
+        word = "";
       }
-      cout << vs << " " << ve << " " << cost << endl;
+      else{
+        word += it;
+      }
     }
+    cout << vs << " " << ve << " " << cost << endl;
     g.insert();
   }
-  cout << "loadGraph" << endl;
+  file.close();
+  // cout << "loadGraph" << endl;
   return g;
 }
 
