@@ -12,7 +12,7 @@ using namespace std;
 class Graph {
   public:
     Graph(int capacity = 0);
-    int insert();
+    int insert(string vs, string ve);
     void display();
 
   private:

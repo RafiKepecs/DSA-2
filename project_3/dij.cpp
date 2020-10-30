@@ -5,9 +5,10 @@
 // #include "hash.h"
 using namespace std;
 
-Graph loadGraph(string graph){
+Graph loadGraph(string graph, string output){
   string str;
   ifstream file(graph);
+  ofstream file2(output);
   int capacity = 100;
   Graph g(capacity);
   bool vs_flag, ve_flag;
@@ -39,16 +40,18 @@ Graph loadGraph(string graph){
         word += it;
       }
     }
-    cout << vs << " " << ve << " " << cost << endl;
-    g.insert();
+    file2 << vs << " " << ve << " " << cost << "\n";
+    // g.insert();
   }
   file.close();
+  file2.close();
   // cout << "loadGraph" << endl;
   return g;
 }
 
 int main(){
-  string graph, start_ver, output;
+  string graph, start_ver, output, output_temp;
+  output_temp = "output.txt";
   cout << "Enter name of graph file: ";
   graph = "graph.txt";// cin >> graph;
   cout << graph << endl;
@@ -57,7 +60,7 @@ int main(){
   cout << start_ver << endl;
   clock_t start, end;
   start = clock();
-  Graph g = loadGraph(graph);
+  Graph g = loadGraph(graph, output_temp);
   end = clock();
   double time_taken = double(end-start) / double(CLOCKS_PER_SEC);
   cout << "Total time (in seconds) to apply Dijkstra's algorithm: " << time_taken << endl;

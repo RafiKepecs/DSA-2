@@ -5,7 +5,7 @@ using namespace std;
 Graph::Graph(int capacity){
 }
 
-int Graph::insert(){
+int Graph::insert(string vs, string ve){
   return 0;
 }
 
