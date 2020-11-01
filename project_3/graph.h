@@ -12,7 +12,7 @@ using namespace std;
 class Graph {
   public:
     Graph(int size = 0);
-    int insert(string vs, string ve);
+    int insert(string vs, string ve, int cost);
     void display();
 
   private:
@@ -25,7 +25,7 @@ class Graph {
     public:
       string vert;
       bool known;
-      list<Edge> adj_list;
+      list<Edge*> adj_list;
     };
 
     list<Vertex*> vertices;

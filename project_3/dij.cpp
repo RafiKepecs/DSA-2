@@ -41,7 +41,7 @@ Graph loadGraph(string graph, string output){
       }
     }
     file2 << vs << " " << ve << " " << cost << "\n";
-    g.insert(vs, ve);
+    g.insert(vs, ve, cost);
   }
   file.close();
   file2.close();
@@ -56,12 +56,13 @@ int main(){
   cout << "Enter name of graph file: ";
   graph = "graph.txt";// cin >> graph;
   cout << graph << endl;
+  Graph g = loadGraph(graph, output_temp);
   cout << "Enter a valid vertex id for the starting vertex: ";
   start_ver = "v1"; // cin >> start;
   cout << start_ver << endl;
   clock_t start, end;
   start = clock();
-  Graph g = loadGraph(graph, output_temp);
+
   end = clock();
   double time_taken = double(end-start) / double(CLOCKS_PER_SEC);
   cout << "Total time (in seconds) to apply Dijkstra's algorithm: " << time_taken << endl;
