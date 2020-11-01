@@ -9,7 +9,7 @@ Graph loadGraph(string graph, string output){
   string str;
   ifstream file(graph);
   ofstream file2(output);
-  int capacity = 100;
+  int capacity = 10;
   Graph g(capacity);
   bool vs_flag, ve_flag;
   string vs, ve, word;
@@ -41,10 +41,11 @@ Graph loadGraph(string graph, string output){
       }
     }
     file2 << vs << " " << ve << " " << cost << "\n";
-    // g.insert();
+    g.insert(vs, ve);
   }
   file.close();
   file2.close();
+  g.display();
   // cout << "loadGraph" << endl;
   return g;
 }

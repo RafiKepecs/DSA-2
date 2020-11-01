@@ -11,17 +11,27 @@ using namespace std;
 
 class Graph {
   public:
-    Graph(int capacity = 0);
+    Graph(int size = 0);
     int insert(string vs, string ve);
     void display();
 
   private:
-    class edge {
+    class Edge {
     public:
-      int dest;
+      string dest;
       int cost;
     };
-    list<edge> test;
+    class Vertex{
+    public:
+      string vert;
+      bool known;
+      list<Edge> adj_list;
+    };
+
+    list<Vertex*> vertices;
+    hashTable mapping;
+    int capacity;
+    int currentSize;
     // int dijkstra();
 };
 
