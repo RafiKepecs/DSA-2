@@ -45,6 +45,21 @@ int Graph::dijkstra(string vs){
   s->path = s;
   s->known = true;
   s->vert = vs;
+
+  /*
+  initiale the HEAP
+  set all the vertices to have infinite length and known bool to false
+  set source vertex equal to input vertex
+  frontier:
+    add every adjacent vertex to the frontier
+  while !deleteMin(pId, pkey)
+    v = new "known" Vertex
+    v->cost = pkey
+    (check if leads to known vertex)
+    for every unknown vertex in v's adj_list
+        add each vertex to the frontier (check if it's already in the frontier and if it is, check if the new pathlength is shorter than the old, in which case use setKey to update the new shortest_path)
+  */
+
   for(auto it : s->adj_list){
     w = static_cast<Vertex *> (mapping.getPointer(it->dest));
     w->dist = it->cost;
@@ -66,7 +81,7 @@ int Graph::dijkstra(string vs){
         w->vert = it->dest;
         h.insert(w->vert, w->dist);
       }
-      cout << w->vert << endl;
+      // cout << w->vert << endl;
     }
   }
   for(auto verts : vertices){
