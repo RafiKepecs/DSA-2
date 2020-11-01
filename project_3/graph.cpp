@@ -33,17 +33,45 @@ int Graph::insert(string vs, string ve, int cost){
 }
 
 int Graph::dijkstra(string vs){
-  Vertex *s = static_cast<Vertex *> (mapping.getPointer(vs));
-  for(auto v : vertices){
-    v->dist = INT_MAX;
-    v->known = false;
-  }
-  s->dist = 0;
-  s->path = nullptr;
+  Vertex *s, *v, *w;
   heap h(capacity); // look at sizes...
-  // while(){
-
-  // }
+  for(auto v1 : vertices){
+    v1->dist = INT_MAX;
+    v1->known = false;
+  }
+  // cout << ".0" << endl;
+  s = static_cast<Vertex *> (mapping.getPointer(vs));
+  s->dist = 0;
+  s->path = s;
+  s->known = true;
+  s->vert = vs;
+  for(auto it : s->adj_list){
+    w = static_cast<Vertex *> (mapping.getPointer(it->dest));
+    w->dist = it->cost;
+    w->vert = it->dest;
+    h.insert(it->dest, it->cost);
+  }
+  string pId = "";
+  int shortest_path = 0;
+  int net_dist = 0;
+  while(!h.deleteMin(&pId, &shortest_path)){
+    v = static_cast<Vertex *> (mapping.getPointer(pId));
+    v->dist = shortest_path;
+    v->vert = pId;
+    v->known = true;
+    for(auto it : v->adj_list){
+      if((v->dist + it->cost) < w->dist){
+        w->dist = v->dist + it->cost;
+        w->path = v;
+        w->vert = it->dest;
+        h.insert(w->vert, w->dist);
+      }
+      cout << w->vert << endl;
+    }
+  }
+  for(auto verts : vertices){
+    cout << verts->path->vert << endl;
+  }
   return 0;
 }
 
