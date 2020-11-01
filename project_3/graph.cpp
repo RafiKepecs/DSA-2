@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 #include "graph.h"
 using namespace std;
 
@@ -31,6 +32,21 @@ int Graph::insert(string vs, string ve, int cost){
   return 0;
 }
 
+int Graph::dijkstra(string vs){
+  Vertex *s = static_cast<Vertex *> (mapping.getPointer(vs));
+  for(auto v : vertices){
+    v->dist = INT_MAX;
+    v->known = false;
+  }
+  s->dist = 0;
+  s->path = nullptr;
+  heap h(capacity); // look at sizes...
+  // while(){
+
+  // }
+  return 0;
+}
+
 void Graph::display(){
   for(auto verts : vertices){
     cout << verts->vert << ": " << "[";
@@ -44,7 +60,3 @@ void Graph::display(){
   }
   return;
 }
-
-// int graph::dijkstra(){
-//   return 0;
-// }

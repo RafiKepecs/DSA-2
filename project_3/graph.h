@@ -14,7 +14,7 @@ class Graph {
     Graph(int size = 0);
     int insert(string vs, string ve, int cost);
     void display();
-
+    int dijkstra(string s);
   private:
     class Edge {
     public:
@@ -25,6 +25,8 @@ class Graph {
     public:
       string vert;
       bool known;
+      int dist;
+      Vertex* path;
       list<Edge*> adj_list;
     };
 
@@ -32,7 +34,7 @@ class Graph {
     hashTable mapping;
     int capacity;
     int currentSize;
-    // int dijkstra();
+
 };
 
 #endif
