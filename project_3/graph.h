@@ -18,6 +18,7 @@ class Graph {
   private:
     class Edge {
     public:
+      string source;
       string dest;
       int cost;
     };

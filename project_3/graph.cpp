@@ -24,6 +24,7 @@ int Graph::insert(string vs, string ve, int cost){
   }
   if(mapping.contains(vs)){
     Edge* e = new Edge;
+    e->source = vs;
     e->dest = ve;
     e->cost = cost;
     Vertex *pn = static_cast<Vertex *> (mapping.getPointer(vs));
@@ -85,7 +86,7 @@ int Graph::dijkstra(string vs){
     v->vert = pId;
     v->known = true;
     // cout << "0.4" << endl;
-    // v->path = s;
+    v->path = s;
     // cout << "0.5" << endl;
     cout << v->vert << ": " << v->dist << " [" << vs << ", ";
     Vertex* test = v;
@@ -99,7 +100,7 @@ int Graph::dijkstra(string vs){
       // if(!h.mapping.contains(it->dest)){
       //   h.insert(it->dest, (v->dist + it->cost));
       // }
-
+      s = static_cast<Vertex *> (mapping.getPointer(it->source));
       w = static_cast<Vertex *> (mapping.getPointer(it->dest));
       // w->dist = it->cost;
       // w->vert = it->dest;
