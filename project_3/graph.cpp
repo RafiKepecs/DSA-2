@@ -48,7 +48,7 @@ int Graph::dijkstra(string vs){
   s->known = true;
   s->vert = vs;
 
-  cout << s->vert << ": " << s->dist << " [" << s->path->vert << "]" << endl;
+  // cout << s->vert << ": " << s->dist << " [" << s->path->vert << "]" << endl;
 
   /*
   initiale the HEAP
@@ -86,21 +86,21 @@ int Graph::dijkstra(string vs){
     v->vert = pId;
     v->known = true;
     // cout << "0.4" << endl;
-    v->path = s;
+    // v->path = s;
     // cout << "0.5" << endl;
-    cout << v->vert << ": " << v->dist << " [" << vs << ", ";
-    Vertex* test = v;
-    // cout << "0.6" << endl;
-    while(test->path->vert != vs){
-      cout << test->path->vert << ", ";
-      test = test->path;
-    }
-    cout << "]" << endl;
+    // cout << v->vert << ": " << v->dist << " [" << vs << ", ";
+    // Vertex* test = v;
+    // // cout << "0.6" << endl;
+    // while(test->path->vert != vs){
+    //   cout << test->path->vert << ", ";
+    //   test = test->path;
+    // }
+    // cout << "]" << endl;
     for(auto it : v->adj_list){
       // if(!h.mapping.contains(it->dest)){
       //   h.insert(it->dest, (v->dist + it->cost));
       // }
-      s = static_cast<Vertex *> (mapping.getPointer(it->source));
+      // s = static_cast<Vertex *> (mapping.getPointer(it->source));
       w = static_cast<Vertex *> (mapping.getPointer(it->dest));
       // w->dist = it->cost;
       // w->vert = it->dest;
@@ -121,12 +121,20 @@ int Graph::dijkstra(string vs){
       // cout << "0.1" << endl;
     }
   }
-  cout << "print" << endl;
-  // for(auto verts : vertices){
-  //   for(auto it : verts->path){
-  //     cout << it->vert << endl;
-  //   }
-  // }
+  // cout << "print" << endl;
+  Vertex* test = *vertices.begin();
+  for(auto verts : vertices){
+    test = verts;
+    // cout << test->vert << endl;
+    cout << verts->vert << ": " << verts->dist << " [" << vs << ", ";
+    while(test->vert != vs){
+      cout << test->vert << ", ";
+      // cout << test->path->vert << ":";
+      test = test->path;
+      // cout << test->vert << ", ";
+    }
+    cout << endl;
+  }
   return 0;
 }
 
