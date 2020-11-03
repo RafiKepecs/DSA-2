@@ -40,14 +40,15 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
   }
   *tmp = data[1].id;
   *pkey = data[1].key;
+  // *ppData = 
   mapping.remove(data[1].id);
   data[1] = data[currentSize--];
   percolateDown(1);
   data[currentSize+1] = node();
   // display();
-  if(currentSize <= 0){
-    return 2;
-  }
+  // if(currentSize <= 0){
+  //   return 2;
+  // }
   return 0;
 }
 

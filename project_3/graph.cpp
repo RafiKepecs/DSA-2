@@ -44,9 +44,9 @@ int Graph::dijkstra(string vs){
   }
   s = static_cast<Vertex *> (mapping.getPointer(vs));
   s->dist = 0;
-  s->path = s;
-  s->known = true;
-  s->vert = vs;
+  s->path = nullptr;
+  // s->known = true;
+  // s->vert = vs;
 
   // cout << s->vert << ": " << s->dist << " [" << s->path->vert << "]" << endl;
 
@@ -64,29 +64,44 @@ int Graph::dijkstra(string vs){
         add each vertex to the frontier (check if it's already in the frontier and if it is, check if the new pathlength is shorter than the old, in which case use setKey to update the new shortest_path)
   */
 
-  for(auto it : s->adj_list){
-    w = static_cast<Vertex *> (mapping.getPointer(it->dest));
-    w->dist = it->cost;
-    w->vert = it->dest;
-    w->path = s;
-    h.insert(it->dest, it->cost);
-  }
+  // for(auto it : s->adj_list){
+  //   w = static_cast<Vertex *> (mapping.getPointer(it->dest));
+  //   w->dist = it->cost;
+  //   w->vert = it->dest;
+  //   w->path = s;
+  //   // cout << w->vert << endl;
+  //   h.insert(it->dest, it->cost);
+  // }
+  h.insert(s->vert, s->dist);
   string pId = "";
   int shortest_path = 0;
-  int net_dist = 0;
+  Vertex* ppData;
+  // int insert_return = 0;
+  // int net_dist = 0;
+  //v1: currently double counting the last cost
+  //v2: sometimes counting correct number, sometimes correct path
   while(!h.deleteMin(&pId, &shortest_path)){
     v = static_cast<Vertex *> (mapping.getPointer(pId));
     v->dist = shortest_path;
     v->vert = pId;
     v->known = true;
+    // cout << v->vert << ", " << v->dist << endl;
+    // cout << v->vert << endl;
+    // cout << "w: " << w->vert << ", dist:" << v->dist << endl;
     for(auto it : v->adj_list){
       w = static_cast<Vertex *> (mapping.getPointer(it->dest));
+      // cout << w->vert << endl;
       if((v->dist + it->cost) < w->dist){
         w->dist = v->dist + it->cost;
         w->path = v;
-        w->vert = it->dest;
-        // cout << "w: " << w->vert << ", dist:" << v->dist << ", cost" << it->cost << endl;
-        h.insert(w->vert, w->dist);
+        // w->vert = it->dest;
+        // cout << "w: " << w->vert << ", dist:" << w->dist << ", path " << w->path->vert << endl;
+        // insert_return = h.insert(w->vert, w->dist);
+        if(h.insert(w->vert, w->dist) == 2){
+          // cout << "test" << endl;
+          h.setKey(w->vert, w->dist);
+        }
+        // cout << insert_return << endl;
       }
     }
   }

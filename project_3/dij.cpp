@@ -40,13 +40,9 @@ Graph loadGraph(string graph){
         word += it;
       }
     }
-    // file2 << vs << " " << ve << " " << cost << "\n";
     g.insert(vs, ve, cost);
   }
   file.close();
-  // file2.close();
-  g.display();
-  // cout << "loadGraph" << endl;
   return g;
 }
 
@@ -57,8 +53,9 @@ int main(){
   graph = "graph.txt";// cin >> graph;
   cout << graph << endl;
   Graph g = loadGraph(graph);
+  // g.display();
   cout << "Enter a valid vertex id for the starting vertex: ";
-  start_ver = "v5"; // cin >> start;
+  start_ver = "v7"; // cin >> start;
   cout << start_ver << endl;
   clock_t start, end;
   start = clock();
