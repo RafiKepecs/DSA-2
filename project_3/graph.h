@@ -14,7 +14,8 @@ class Graph {
     Graph(int size = 0);
     int insert(string vs, string ve, int cost);
     void display();
-    int dijkstra(string s);
+    void printGraph(string vs);
+    int dijkstra(string vs);
   private:
     class Edge {
     public:

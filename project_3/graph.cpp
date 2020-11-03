@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits.h>
+#include <string>
 #include "graph.h"
 using namespace std;
 
@@ -41,7 +42,6 @@ int Graph::dijkstra(string vs){
     v1->dist = INT_MAX;
     v1->known = false;
   }
-  // cout << ".0" << endl;
   s = static_cast<Vertex *> (mapping.getPointer(vs));
   s->dist = 0;
   s->path = s;
@@ -70,72 +70,47 @@ int Graph::dijkstra(string vs){
     w->vert = it->dest;
     w->path = s;
     h.insert(it->dest, it->cost);
-    // cout << it->cost << endl;
   }
   string pId = "";
   int shortest_path = 0;
   int net_dist = 0;
   while(!h.deleteMin(&pId, &shortest_path)){
-    // cout << "0.2" << endl;
-    // s->vert = v->vert;
-    // s->path = v->path;
-    // cout << "0.3" << endl;
     v = static_cast<Vertex *> (mapping.getPointer(pId));
     v->dist = shortest_path;
-    // cout << pId << endl;
     v->vert = pId;
     v->known = true;
-    // cout << "0.4" << endl;
-    // v->path = s;
-    // cout << "0.5" << endl;
-    // cout << v->vert << ": " << v->dist << " [" << vs << ", ";
-    // Vertex* test = v;
-    // // cout << "0.6" << endl;
-    // while(test->path->vert != vs){
-    //   cout << test->path->vert << ", ";
-    //   test = test->path;
-    // }
-    // cout << "]" << endl;
     for(auto it : v->adj_list){
-      // if(!h.mapping.contains(it->dest)){
-      //   h.insert(it->dest, (v->dist + it->cost));
-      // }
-      // s = static_cast<Vertex *> (mapping.getPointer(it->source));
       w = static_cast<Vertex *> (mapping.getPointer(it->dest));
-      // w->dist = it->cost;
-      // w->vert = it->dest;
-
-      // if(h.insert(it->dest, it->cost) == 2){
-      //
-      //   if()
-      // }
-      // cout << it->cost << ", " << w->dist << endl;
-
       if((v->dist + it->cost) < w->dist){
         w->dist = v->dist + it->cost;
-        // cout << it->cost << endl;
         w->path = v;
         w->vert = it->dest;
+        // cout << "w: " << w->vert << ", dist:" << v->dist << ", cost" << it->cost << endl;
         h.insert(w->vert, w->dist);
       }
-      // cout << "0.1" << endl;
     }
-  }
-  // cout << "print" << endl;
-  Vertex* test = *vertices.begin();
-  for(auto verts : vertices){
-    test = verts;
-    // cout << test->vert << endl;
-    cout << verts->vert << ": " << verts->dist << " [" << vs << ", ";
-    while(test->vert != vs){
-      cout << test->vert << ", ";
-      // cout << test->path->vert << ":";
-      test = test->path;
-      // cout << test->vert << ", ";
-    }
-    cout << endl;
   }
   return 0;
+}
+
+void Graph::printGraph(string vs){
+  Vertex* test = *vertices.begin();
+  string path;
+  for(auto verts : vertices){
+    path = "";
+    if(verts->dist >= INT_MAX){
+      cout << verts->vert << ": NO PATH" << endl;
+    }
+    else{
+      cout << verts->vert << ": " << verts->dist << " [" << vs;
+      test = verts;
+      while(test->vert != vs){
+        path = ", " + test->vert + path;
+        test = test->path;
+      }
+      cout << path << "]" << endl;
+    }
+  }
 }
 
 void Graph::display(){

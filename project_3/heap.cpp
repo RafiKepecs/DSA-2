@@ -45,6 +45,9 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
   percolateDown(1);
   data[currentSize+1] = node();
   // display();
+  if(currentSize <= 0){
+    return 2;
+  }
   return 0;
 }
 

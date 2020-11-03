@@ -58,12 +58,13 @@ int main(){
   cout << graph << endl;
   Graph g = loadGraph(graph);
   cout << "Enter a valid vertex id for the starting vertex: ";
-  start_ver = "v1"; // cin >> start;
+  start_ver = "v5"; // cin >> start;
   cout << start_ver << endl;
   clock_t start, end;
   start = clock();
   g.dijkstra(start_ver);
   end = clock();
+  g.printGraph(start_ver);
   double time_taken = double(end-start) / double(CLOCKS_PER_SEC);
   cout << "Total time (in seconds) to apply Dijkstra's algorithm: " << time_taken << endl;
   cout << "Enter name of output file: ";
