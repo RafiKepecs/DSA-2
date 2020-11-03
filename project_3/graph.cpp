@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <limits.h>
 #include <string>
 #include "graph.h"
@@ -108,24 +109,26 @@ int Graph::dijkstra(string vs){
   return 0;
 }
 
-void Graph::printGraph(string vs){
+void Graph::printGraph(string vs, string output){
+  ofstream file(output);
   Vertex* test = *vertices.begin();
   string path;
   for(auto verts : vertices){
     path = "";
     if(verts->dist >= INT_MAX){
-      cout << verts->vert << ": NO PATH" << endl;
+      file << verts->vert << ": NO PATH" << endl;
     }
     else{
-      cout << verts->vert << ": " << verts->dist << " [" << vs;
+      file << verts->vert << ": " << verts->dist << " [" << vs;
       test = verts;
       while(test->vert != vs){
         path = ", " + test->vert + path;
         test = test->path;
       }
-      cout << path << "]" << endl;
+      file << path << "]" << endl;
     }
   }
+  file.close();
 }
 
 void Graph::display(){
