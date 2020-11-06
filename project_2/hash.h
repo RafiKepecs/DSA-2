@@ -42,6 +42,9 @@ class hashTable {
   // false if the specified key is not in the hash table.
   bool remove(const std::string &key);
 
+  //displays all elements of hashTable for debugging purposes
+  void display();
+
 
  private:
 
