@@ -16,6 +16,7 @@ class Graph {
     void display();
     void printGraph(string vs, string output);
     int dijkstra(string vs);
+    bool containsVertex(string vs);
   private:
     class Edge {
     public:

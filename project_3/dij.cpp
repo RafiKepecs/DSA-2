@@ -10,8 +10,8 @@ Graph loadGraph(string graph){
   string str;
   ifstream file(graph);
   // ofstream file2(output);
-  int capacity = 10;
-  Graph g(capacity);
+  // int capacity = 10;
+  Graph g;
   bool vs_flag, ve_flag;
   string vs, ve, word;
   int cost;
@@ -59,9 +59,13 @@ int main(){
   cin >> graph;
   // cout << graph << endl;
   Graph g = loadGraph(graph);
+  // start_ver = "";
+  // g.containsVertex(start_ver);
   // g.display();
-  cout << "Enter a valid vertex id for the starting vertex: ";
-  cin >> start_ver;
+  do{
+    cout << "Enter a valid vertex id for the starting vertex: ";
+    cin >> start_ver;
+  } while (!g.containsVertex(start_ver));
   // start_ver = "v1"; // cin >> start;
   // cout << start_ver << endl;
   clock_t start, end;

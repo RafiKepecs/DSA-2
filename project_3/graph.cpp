@@ -17,12 +17,14 @@ int Graph::insert(string vs, string ve, int cost){
     v->vert = vs;
     vertices.push_back(v);
     mapping.insert(vs, vertices.back());
+    currentSize++;
   }
   if (!mapping.contains(ve)){
     Vertex* v = new Vertex;
     v->vert = ve;
     vertices.push_back(v);
     mapping.insert(ve, vertices.back());
+    currentSize++;
   }
   if(mapping.contains(vs)){
     Edge* e = new Edge;
@@ -36,9 +38,19 @@ int Graph::insert(string vs, string ve, int cost){
   return 0;
 }
 
+bool Graph::containsVertex(string vs){
+  if(mapping.contains(vs)){
+    return true;
+  }
+  else{
+    return false;
+  }
+  // return 0;
+}
+
 int Graph::dijkstra(string vs){
   Vertex *s, *v, *w;
-  heap h(capacity); // look at sizes...
+  heap h(currentSize); // look at sizes...
   for(auto v1 : vertices){
     v1->dist = INT_MAX;
     v1->known = false;

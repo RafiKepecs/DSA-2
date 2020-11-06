@@ -51,10 +51,8 @@ int hashTable::hash(const string &key){
 //implementation based on textbook
 int hashTable::findPos(const string &key){
   int currentPos = hash(key);
-  while(data[currentPos].isOccupied == true) {
-    if(data[currentPos].key == key && !data[currentPos].isDeleted){
-      return currentPos;
-    }
+  while(data[currentPos].isOccupied == true &&
+        data[currentPos].key != key){
     currentPos += 1; // current probe
     if(currentPos >= data.size()){
       currentPos -= data.size();
@@ -119,7 +117,7 @@ bool hashTable::remove(const std::string &key){
     return false;
   }
   int currentPos = findPos(key);
-  // data[currentPos] = hashItem();
+  data[currentPos] = hashItem();
   data[currentPos].isDeleted = true;
   return true;
 }
