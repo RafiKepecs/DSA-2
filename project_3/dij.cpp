@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include "graph.h"
 // #include "heap.h"
 // #include "hash.h"
@@ -15,6 +16,9 @@ Graph loadGraph(string graph){
   string vs, ve, word;
   int cost;
   while(getline(file,str)){
+    stringstream ss(str);
+    ss >> vs >> ve >> cost;
+    /*
     vs_flag = false;
     ve_flag = false;
     word = "";
@@ -36,10 +40,11 @@ Graph loadGraph(string graph){
         }
         word = "";
       }
-      else{
+      else if(it != '/n'){
         word += it;
       }
     }
+    */
     g.insert(vs, ve, cost);
   }
   file.close();
