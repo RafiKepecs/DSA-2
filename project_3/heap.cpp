@@ -25,6 +25,7 @@ int heap::insert(const string &tmp, int key, void *pv){
     int posCur = currentSize+1;
     data[0].key = key;
     data[0].id = tmp;
+    data[0].pData = pv;
     mapping.insert(tmp, &data[posCur]);
     percolateUp(++currentSize);
     // display();
@@ -40,7 +41,8 @@ int heap::deleteMin(string *tmp, int *pkey, void *ppData){
   }
   *tmp = data[1].id;
   *pkey = data[1].key;
-  // *ppData = 
+  ppData = &data[1].pData;
+  // *ppData =
   mapping.remove(data[1].id);
   data[1] = data[currentSize--];
   percolateDown(1);
@@ -85,6 +87,7 @@ int heap::remove(const string &tmp, int *pkey, void *ppData){
   int oldKey = data[posCur].key;
   // if(pkey != nullptr){
     *pkey = data[posCur].key;
+    ppData = &data[posCur].pData;
   // }
   mapping.remove(data[posCur].id);
   data[posCur] = data[currentSize--];
